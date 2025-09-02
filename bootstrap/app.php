@@ -29,7 +29,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Evaluate the window that just ended every minute
         $schedule->call(function (BatchAggregatorService $aggregator, CycleBucketing $bucketing) {
             $now = now()->second(0);
-            $current = CycleWindow::forTime(arbonImmutable::instance($now));
+            $current = CycleWindow::forTime(CarbonImmutable::instance($now));
             $previous = new CycleWindow($current->start->subMinutes(10), $current->start);
             $aggregator->evaluateWindow($previous);
         })->everyMinute();

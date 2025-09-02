@@ -11,6 +11,7 @@ use App\Support\CycleWindow;
 use App\Support\Money;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Events\{InvoiceCreated, InvoicesOverdue, InvoicesScheduled, InvoicesSuspended};
 
 /**
@@ -25,8 +26,7 @@ class BatchAggregatorService
         private readonly FeePolicy $feePolicy,
         private readonly CycleBucketing $bucketing,
         private readonly InvoiceRepository $invoices,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new Pending invoice with calculated fee and net for the current window.
@@ -57,6 +57,7 @@ class BatchAggregatorService
 
         if ($total >= $threshold) {
             $ids = $this->invoices->idsByStatusInWindow(InvoiceStatus::Pending, $window);
+
             if (! empty($ids)) {
                 app(InvoiceStatusTransitionService::class)->markScheduled($ids);
                 InvoicesScheduled::dispatch($ids);
@@ -64,6 +65,8 @@ class BatchAggregatorService
         } else {
             DB::transaction(function () use ($window) {
                 $ids = $this->invoices->idsByStatusInWindow(InvoiceStatus::Pending, $window);
+
+                Log::info(implode(', ', $ids));
                 if (! empty($ids)) {
                     app(InvoiceStatusTransitionService::class)->markSuspended($ids);
                     InvoicesSuspended::dispatch($ids);
@@ -93,5 +96,3 @@ class BatchAggregatorService
         }
     }
 }
-
-

@@ -46,7 +46,7 @@ class InvoicesRelationManager extends RelationManager
                     Action::make('mark_paid')
                         ->label('Mark Paid')
                         ->color('success')
-                        // ->visible(fn ($record) => $record->status->value === 'overdue')
+                        ->visible(fn ($record) => $record->status->value === 'overdue')
                         ->requiresConfirmation()
                         ->successNotificationTitle('Invoice marked as paid')
                         ->action(function ($record) {
@@ -62,7 +62,7 @@ class InvoicesRelationManager extends RelationManager
                     Action::make('not_received')
                         ->label('Not Received')
                         ->color('warning')
-                        // ->visible(fn ($record) => $record->status->value === 'overdue')
+                        ->visible(fn ($record) => $record->status->value === 'overdue')
                         ->requiresConfirmation()
                         ->successNotificationTitle('Invoice marked as not received')
                         ->action(function ($record) {

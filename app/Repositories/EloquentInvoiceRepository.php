@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use App\Support\CycleWindow;
 use App\Support\Money;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class EloquentInvoiceRepository implements InvoiceRepository
 {
@@ -27,6 +28,7 @@ class EloquentInvoiceRepository implements InvoiceRepository
 
     public function sumNetByStatusInWindow(InvoiceStatus $status, CycleWindow $window): float
     {
+        
         return (float) Invoice::query()
             ->where('status', $status)
             ->whereBetween('entered_at', [$window->start, $window->end])
@@ -37,7 +39,7 @@ class EloquentInvoiceRepository implements InvoiceRepository
     {
         return Invoice::query()
             ->where('status', $status)
-            ->whereBetween('entered_at', [$window->start, $window->end])
+            ->where('entered_at', '<', $window->start)
             ->pluck('id')
             ->all();
     }
