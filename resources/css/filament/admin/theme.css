@@ -1,0 +1,46 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+.fi-sidebar, .fi-sidebar-header, .fi-topbar > nav  {
+    /* background-color: #b0b0b0 !important; */
+    
+}
+
+.fi-sidebar-header .fi-logo {
+    /* color: #fff !important; */
+}
+
+.fi-sidebar-item, .fi-sidebar-item > a:hover, .fi-sidebar-item-active > a {
+    /* background-color: #747577 !important;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px; */
+}
+
+.fi-sidebar-item.fi-sidebar-item-active > a {
+    /* background-color: #111f5d !important; */
+}
+
+.fi-sidebar-item-label {
+    /* color: #fff !important; */
+}
+
+.fi-sidebar-item >a {
+    /* background-color: #021153 !important; */
+}
+
+.fi-wi-widget:nth-child(even) .fi-section {
+    /* background-color: orange; */
+}
+
+.fi-wi-widget:nth-child(odd) .fi-section {
+    /* background-color: blue; */
+    min-height: 180px;
+}
+
+.overlook-icon {
+    opacity: 0.1;
+}
