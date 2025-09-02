@@ -11,6 +11,7 @@ use App\Support\CycleWindow;
 use App\Support\Money;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
+use App\Events\{InvoiceCreated, InvoicesOverdue, InvoicesScheduled, InvoicesSuspended};
 
 /**
  * Core batching coordinator:
@@ -38,7 +39,9 @@ class BatchAggregatorService
 
         $window = $this->bucketing->currentWindow();
 
-        return $this->invoices->createPending($clientId, $merchantId, $gross, $fee, $net);
+        $invoice = $this->invoices->createPending($clientId, $merchantId, $gross, $fee, $net);
+        InvoiceCreated::dispatch($invoice);
+        return $invoice;
     }
 
     /**
@@ -56,12 +59,14 @@ class BatchAggregatorService
             $ids = $this->invoices->idsByStatusInWindow(InvoiceStatus::Pending, $window);
             if (! empty($ids)) {
                 app(InvoiceStatusTransitionService::class)->markScheduled($ids);
+                InvoicesScheduled::dispatch($ids);
             }
         } else {
             DB::transaction(function () use ($window) {
                 $ids = $this->invoices->idsByStatusInWindow(InvoiceStatus::Pending, $window);
                 if (! empty($ids)) {
                     app(InvoiceStatusTransitionService::class)->markSuspended($ids);
+                    InvoicesSuspended::dispatch($ids);
                 }
             });
         }
@@ -84,6 +89,7 @@ class BatchAggregatorService
             $ids = $this->invoices->idsByStatus(InvoiceStatus::Suspended);
             $ids[] = $newInvoice->id;
             app(InvoiceStatusTransitionService::class)->markScheduled($ids);
+            InvoicesScheduled::dispatch($ids);
         }
     }
 }

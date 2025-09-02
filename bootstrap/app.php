@@ -11,6 +11,7 @@ use App\Support\CycleWindow;
 use Carbon\CarbonImmutable;
 use App\Models\Invoice;
 use App\Enums\InvoiceStatus;
+use App\Events\InvoicesOverdue;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -43,6 +44,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->all();
             if (! empty($ids)) {
                 $transition->markOverdue($ids);
+                InvoicesOverdue::dispatch($ids);
             }
         })->everyMinute();
     })

@@ -38,6 +38,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->homeUrl('/admin')
             ->login()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('10s')
             // ->brandName(__()) // SET THE NAME OF THE WEBSITE
             // ->brandLogo(url()) // SET THE LOGO URL
             // ->favicon(url()) // SET THE FAVICON URL

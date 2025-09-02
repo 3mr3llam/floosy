@@ -12,6 +12,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -104,6 +105,22 @@ class User extends Authenticatable implements MustVerifyEmail
     public function clients(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'merchant_user', 'merchant_id', 'client_id');
+    }
+
+    /**
+     * Invoices where this user is the merchant.
+     */
+    public function invoices(): HasMany
+    {
+        return $this->hasMany(\App\Models\Invoice::class, 'merchant_id');
+    }
+
+    /**
+     * Invoices where this user is the client.
+     */
+    public function clientInvoices(): HasMany
+    {
+        return $this->hasMany(\App\Models\Invoice::class, 'client_id');
     }
 
     /**
