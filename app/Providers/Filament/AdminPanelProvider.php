@@ -62,9 +62,9 @@ class AdminPanelProvider extends PanelProvider
 
             ])
             ->navigationItems([
-                \Filament\Navigation\NavigationItem::make(fn() => __('filament-logger::filament-logger.nav.group'))
-                    ->url(url('/admin/site-settings/1/edit'), shouldOpenInNewTab: false)
-                    ->icon('heroicon-o-cog-6-tooth'),
+                // \Filament\Navigation\NavigationItem::make(fn() => __('filament-logger::filament-logger.nav.group'))
+                //     ->url(url('/admin/site-settings/1/edit'), shouldOpenInNewTab: false)
+                //     ->icon('heroicon-o-cog-6-tooth'),
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -13,9 +13,18 @@ class UserRoleSeeder extends Seeder
      */
     public function run(): void
     {
-
         Role::updateOrCreate([
             'name' => 'user',
+            'guard_name' => 'web',
+        ]);
+
+        Role::updateOrCreate([
+            'name' => 'client',
+            'guard_name' => 'web',
+        ]);
+
+        Role::updateOrCreate([
+            'name' => 'merchant',
             'guard_name' => 'web',
         ]);
     }

@@ -18,19 +18,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Category::truncate();
         Admin::truncate();
         User::truncate();
-        Country::truncate();
-        City::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $this->call([
-            CategorySeeder::class,
             AdminUserSeeder::class,
-            userSeeder::class,
-            CountrySeeder::class,
-            CitySeeder::class,
+            UserRoleSeeder::class,
+            MerchantClientSeeder::class,
+            CycleInvoiceSeeder::class,
         ]);
     }
 }

@@ -15,15 +15,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            $table->string('default_lang')->default('ar');
-			$table->string('default_payment')->nullable();
-			$table->string('default_currancy')->default('IQD');
-            $table->string('site_name')->nullable();
-            $table->string('meta_title')->nullable(); //
-            $table->string('meta_description')->nullable();
-            $table->string('meta_keyWords')->nullable();
-            $table->string('meta_author')->nullable();
-            $table->string('fav_icon')->nullable();
+            $table->string('site_name');
+            $table->decimal('fee_percentage', 5, 2)->default(2.00);
+            $table->decimal('invoices_cumulative_value', 12, 2)->default(50.00);
         });
     }
 

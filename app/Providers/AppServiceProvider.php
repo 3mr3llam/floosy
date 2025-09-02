@@ -12,6 +12,8 @@ use Livewire\Livewire;
 use Spatie\Activitylog\Models\Activity;
 
 use Illuminate\Support\{Facades\App, Facades\DB, Facades\Gate, Facades\RateLimiter, Facades\Route, ServiceProvider};
+use App\Contracts\FeePolicy;
+use App\Services\DefaultFeePolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-
+        $this->app->bind(FeePolicy::class, DefaultFeePolicy::class);
     }
 
     /**
@@ -33,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
 
         LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
             $switch
-                ->locales(['ar','en']); // also accepts a closure
+                ->locales(['ar', 'en']); // also accepts a closure
         });
 
         // this will fix livewire issue with xampp
