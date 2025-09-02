@@ -30,7 +30,8 @@
                     </div>
                     <div class="flex items-center justify-end gap-2">
                         <button wire:click="closeModals" class="px-4 py-2 border rounded">Cancel</button>
-                        <button wire:click="login" class="px-4 py-2 bg-indigo-600 text-white rounded">Login</button>
+                        <button wire:click="login" wire:loading.attr="disabled" wire:target="login"
+                            class="px-4 py-2 bg-indigo-600 text-white rounded disabled:opacity-60 disabled:cursor-not-allowed">Login</button>
                     </div>
                 </div>
             </div>

@@ -30,11 +30,13 @@ class CycleInvoiceSeeder extends Seeder
         // Create cycles
         $cycles = Cycle::factory()->count(3)->create();
 
-        // Create invoices and randomly attach to cycles
+        // Create invoices and randomly attach to cycles; also ensure pivot consistency
         foreach ($cycles as $cycle) {
             foreach (range(1, 8) as $i) {
                 $merchant = $merchants->random();
                 $client = $clients->random();
+                // ensure relation exists
+                $client->merchants()->syncWithoutDetaching([$merchant->id]);
                 $invoice = Invoice::factory()
                     ->create([
                         'merchant_id' => $merchant->id,

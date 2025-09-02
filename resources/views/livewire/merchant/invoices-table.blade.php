@@ -34,14 +34,15 @@
                         <td class="p-3">SAR {{ number_format($inv->gross_amount, 2) }}</td>
                         <td class="p-3">SAR {{ number_format($inv->fee_amount, 2) }}</td>
                         <td class="p-3">SAR {{ number_format($inv->net_amount, 2) }}</td>
-                        <td class="p-3 capitalize">{{ str_replace('_', ' ', $inv->status) }}</td>
+                        <td class="p-3 capitalize">{{ str_replace('_', ' ', $inv->status->value) }}</td>
                         <td class="p-3">
-                            @if (in_array($inv->status, ['overdue']))
-                                <button wire:click="updateStatus({{ $inv->id }}, 'paid')"
-                                    class="px-3 py-1 bg-emerald-600 text-white rounded">Mark Paid</button>
-                                <button wire:click="updateStatus({{ $inv->id }}, 'not_received')"
-                                    class="px-3 py-1 bg-amber-600 text-white rounded ml-2">Not Received</button>
-                            @endif
+                            <button wire:click="updateStatus({{ $inv->id }}, 'paid')" @disabled($inv->status->value !== 'overdue')
+                                class="px-3 py-1 bg-emerald-600 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed">Mark
+                                Paid</button>
+                            <button wire:click="updateStatus({{ $inv->id }}, 'not_received')"
+                                @disabled($inv->status->value !== 'overdue')
+                                class="px-3 py-1 bg-amber-600 text-white rounded ml-2 disabled:opacity-50 disabled:cursor-not-allowed">Not
+                                Received</button>
                         </td>
                     </tr>
                 @endforeach

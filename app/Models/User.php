@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -76,9 +77,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 unset($model->password);
             }
             */
-
         });
-
     }
 
     /**
@@ -89,6 +88,22 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         // your conditional logic here
         return true;
+    }
+
+    /**
+     * Merchants related to this client (many-to-many via merchant_user)
+     */
+    public function merchants(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'merchant_user', 'client_id', 'merchant_id');
+    }
+
+    /**
+     * Clients related to this merchant (many-to-many via merchant_user)
+     */
+    public function clients(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'merchant_user', 'merchant_id', 'client_id');
     }
 
     /**

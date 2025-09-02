@@ -6,8 +6,14 @@ use App\Contracts\FeePolicy;
 use App\Models\SiteSetting;
 use App\Support\Money;
 
+/**
+ * Default fee strategy: reads percentage from SiteSetting (fallback 2%).
+ */
 class DefaultFeePolicy implements FeePolicy
 {
+    /**
+     * Return the fee amount in the same currency/minor units as the gross.
+     */
     public function calculateFee(Money $gross): Money
     {
         $settings = SiteSetting::first();

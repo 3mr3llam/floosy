@@ -14,6 +14,8 @@ use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\{Facades\App, Facades\DB, Facades\Gate, Facades\RateLimiter, Facades\Route, ServiceProvider};
 use App\Contracts\FeePolicy;
 use App\Services\DefaultFeePolicy;
+use App\Contracts\Repositories\InvoiceRepository;
+use App\Repositories\EloquentInvoiceRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(FeePolicy::class, DefaultFeePolicy::class);
+        $this->app->bind(InvoiceRepository::class, EloquentInvoiceRepository::class);
     }
 
     /**

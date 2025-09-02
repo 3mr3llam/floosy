@@ -4,6 +4,10 @@ namespace App\Support;
 
 use Carbon\CarbonImmutable;
 
+/**
+ * Immutable value object representing a 10-minute batching window
+ * with normalized start and end timestamps.
+ */
 class CycleWindow
 {
     public function __construct(
@@ -11,6 +15,9 @@ class CycleWindow
         public readonly CarbonImmutable $end,
     ) {}
 
+    /**
+     * Compute the 10-minute window that contains the given time.
+     */
     public static function forTime(CarbonImmutable $time): self
     {
         $minute = (int) floor($time->minute / 10) * 10;

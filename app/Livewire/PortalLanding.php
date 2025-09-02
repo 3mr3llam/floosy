@@ -16,6 +16,19 @@ class PortalLanding extends Component
 
     public string $loginContext = 'client'; // client|merchant
 
+    public function mount(): void
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->role === 'merchant') {
+                $this->redirectRoute('merchant.portal', navigate: true);
+                return;
+            }
+            $this->redirectRoute('client.portal', navigate: true);
+            return;
+        }
+    }
+
     public function openClientLogin(): void
     {
         $this->loginContext = 'client';
@@ -44,6 +57,22 @@ class PortalLanding extends Component
         }
 
         session()->regenerate();
+
+        $user = Auth::user();
+        if ($this->loginContext === 'merchant' && ($user->role !== 'merchant')) {
+            Auth::logout();
+            session()->invalidate();
+            session()->regenerateToken();
+            $this->addError('email', __('You must login with a merchant account.'));
+            return;
+        }
+        if ($this->loginContext === 'client' && ($user->role !== 'client')) {
+            Auth::logout();
+            session()->invalidate();
+            session()->regenerateToken();
+            $this->addError('email', __('You must login with a client account.'));
+            return;
+        }
 
         if ($this->loginContext === 'merchant') {
             $this->redirectRoute('merchant.portal', navigate: true);
