@@ -9,7 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateSiteSetting extends CreateRecord
 {
     protected static string $resource = SiteSettingResource::class;
-    use CreateRecord\Concerns\Translatable;
+    // use CreateRecord\Concerns\Translatable;
  
     protected function getHeaderActions(): array
     {

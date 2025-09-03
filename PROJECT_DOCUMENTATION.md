@@ -148,7 +148,9 @@ php artisan db:seed
 
 #### 4. Admin Setup
 ```bash
+### run this line if you run the databaseseeder
 php artisan shield:super-admin --user=1
+### if not this create a new filament user
 php artisan make:filament-user
 ```
 

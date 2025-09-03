@@ -9,7 +9,8 @@ use Filament\Resources\Pages\ListRecords;
 class ListSiteSettings extends ListRecords
 {
     protected static string $resource = SiteSettingResource::class;
-    use ListRecords\Concerns\Translatable;
+    // use ListRecords\Concerns\Translatable;
+    
     protected function getHeaderActions(): array
     {
         return [

@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             UserRoleSeeder::class,
             MerchantClientSeeder::class,
             CycleInvoiceSeeder::class,
+            SiteSettingsSeeder::class,
         ]);
     }
 }

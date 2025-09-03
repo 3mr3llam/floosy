@@ -9,7 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditSiteSetting extends EditRecord
 {
     protected static string $resource = SiteSettingResource::class;
-    use EditRecord\Concerns\Translatable;
+    // use EditRecord\Concerns\Translatable;
 
     protected function getHeaderActions(): array
     {
