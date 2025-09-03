@@ -15,7 +15,7 @@ class UserPolicy
      */
     public function viewAny(Admin $admin): bool
     {
-        return $admin->can('view_any_user');
+        return $admin->can('view_any_merchant');
     }
 
     /**
@@ -23,7 +23,7 @@ class UserPolicy
      */
     public function view(Admin $admin, User $user): bool
     {
-        return $admin->can('view_user');
+        return $admin->can('view_merchant');
     }
 
     /**
@@ -31,7 +31,7 @@ class UserPolicy
      */
     public function create(Admin $admin): bool
     {
-        return $admin->can('create_user');
+        return $admin->can('create_merchant');
     }
 
     /**
@@ -39,7 +39,7 @@ class UserPolicy
      */
     public function update(Admin $admin, User $user): bool
     {
-        return $admin->can('update_user');
+        return $admin->can('update_merchant');
     }
 
     /**
@@ -47,7 +47,7 @@ class UserPolicy
      */
     public function delete(Admin $admin, User $user): bool
     {
-        return $admin->can('delete_user');
+        return $admin->can('delete_merchant');
     }
 
     /**
@@ -55,7 +55,7 @@ class UserPolicy
      */
     public function deleteAny(Admin $admin): bool
     {
-        return $admin->can('delete_any_user');
+        return $admin->can('delete_any_merchant');
     }
 
     /**
@@ -63,7 +63,7 @@ class UserPolicy
      */
     public function forceDelete(Admin $admin, User $user): bool
     {
-        return $admin->can('force_delete_user');
+        return $admin->can('force_delete_merchant');
     }
 
     /**
@@ -71,7 +71,7 @@ class UserPolicy
      */
     public function forceDeleteAny(Admin $admin): bool
     {
-        return $admin->can('force_delete_any_user');
+        return $admin->can('force_delete_any_merchant');
     }
 
     /**
@@ -79,7 +79,7 @@ class UserPolicy
      */
     public function restore(Admin $admin, User $user): bool
     {
-        return $admin->can('restore_user');
+        return $admin->can('restore_merchant');
     }
 
     /**
@@ -87,7 +87,7 @@ class UserPolicy
      */
     public function restoreAny(Admin $admin): bool
     {
-        return $admin->can('restore_any_user');
+        return $admin->can('restore_any_merchant');
     }
 
     /**
@@ -95,7 +95,7 @@ class UserPolicy
      */
     public function replicate(Admin $admin, User $user): bool
     {
-        return $admin->can('replicate_user');
+        return $admin->can('replicate_merchant');
     }
 
     /**
@@ -103,6 +103,6 @@ class UserPolicy
      */
     public function reorder(Admin $admin): bool
     {
-        return $admin->can('reorder_user');
+        return $admin->can('reorder_merchant');
     }
 }

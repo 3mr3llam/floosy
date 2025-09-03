@@ -80,15 +80,42 @@ class InvoiceStatusTransitionService
     /**
      * Mark an Overdue invoice as Paid and set paid_at.
      */
+    /**
+     * Mark an Overdue invoice as Paid, update timestamps, and process payment withdrawal.
+     * 
+     * Note: This is where we would typically integrate with a payment gateway to
+     * transfer the funds to the merchant's account. The actual implementation
+     * would depend on the payment provider's API.
+     * 
+     * Example:
+     * $paymentGateway->transfer($invoice->merchant->payment_account_id, $invoice->net_amount);
+     */
     public function markPaid(Invoice $invoice): ?string
     {
         if ($invoice->status !== InvoiceStatus::Overdue) {
             return 'Only overdue invoices can be marked paid.';
         }
+        
         $invoice->update([
             'status' => InvoiceStatus::Paid,
             'paid_at' => now(),
+            'withdrawn_at' => now(), // Record when the money was withdrawn to the merchant
         ]);
+        
+        // TODO: Implement actual payment gateway integration here
+        // Example:
+        // try {
+        //     $paymentGateway = app(PaymentGateway::class);
+        //     $paymentGateway->transfer(
+        //         $invoice->merchant->payment_account_id,
+        //         $invoice->net_amount,
+        //         'Payment for invoice ' . $invoice->reference
+        //     );
+        // } catch (PaymentGatewayException $e) {
+        //     Log::error('Payment gateway error: ' . $e->getMessage());
+        //     return 'Payment processing failed. Please try again later.';
+        // }
+        
         return null;
     }
 

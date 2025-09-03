@@ -39,10 +39,11 @@
                             <button wire:click="updateStatus({{ $inv->id }}, 'paid')" @disabled($inv->status->value !== 'overdue')
                                 class="px-3 py-1 bg-emerald-600 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed">Mark
                                 Paid</button>
-                            <button wire:click="updateStatus({{ $inv->id }}, 'not_received')"
+                                {{-- may be we will need this part sometimes in the future --}}
+                            {{-- <button wire:click="updateStatus({{ $inv->id }}, 'not_received')"
                                 @disabled($inv->status->value !== 'overdue')
                                 class="px-3 py-1 bg-amber-600 text-white rounded ml-2 disabled:opacity-50 disabled:cursor-not-allowed">Not
-                                Received</button>
+                                Received</button> --}}
                         </td>
                     </tr>
                 @endforeach

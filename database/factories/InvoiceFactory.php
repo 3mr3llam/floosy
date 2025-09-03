@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\InvoiceStatus;
 use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -28,7 +29,7 @@ class InvoiceFactory extends Factory
             'gross_amount' => $gross,
             'fee_amount' => $fee,
             'net_amount' => $net,
-            'status' => 'pending',
+            'status' => $this->faker->randomElement([InvoiceStatus::Pending, InvoiceStatus::Suspended, InvoiceStatus::Scheduled, InvoiceStatus::Overdue, InvoiceStatus::Paid, InvoiceStatus::NotReceived]),
             'entered_at' => now(),
         ];
     }

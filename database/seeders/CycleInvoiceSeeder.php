@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Enums\InvoiceStatus;
 use App\Models\Cycle;
 use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class CycleInvoiceSeeder extends Seeder
 {
