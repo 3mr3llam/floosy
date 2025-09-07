@@ -124,7 +124,7 @@ npm install
 #### 2. Environment Configuration
 ```bash
 cp .env.example .env
-php artisan key:generate --all
+php artisan key:generate 
 ```
 
 Edit `.env` file:
@@ -148,6 +148,9 @@ php artisan db:seed
 
 #### 4. Admin Setup
 ```bash
+php artisan shield:generate --all
+
+
 ### run this line if you run the databaseseeder
 php artisan shield:super-admin --user=1
 ### if not this create a new filament user
