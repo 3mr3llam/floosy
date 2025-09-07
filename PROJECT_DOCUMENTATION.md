@@ -124,7 +124,7 @@ npm install
 #### 2. Environment Configuration
 ```bash
 cp .env.example .env
-php artisan key:generate
+php artisan key:generate --all
 ```
 
 Edit `.env` file:
